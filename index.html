@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user}}의 집 털기! - 크리스마스 좀도둑 하렘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0b132b;
+            --bg-card: #1c2541;
+            --xmas-red: #d90429;
+            --xmas-green: #2b9348;
+            --xmas-gold: #ffb703;
+            --text-light: #f8f9fa;
+            --text-muted: #adb5bd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 눈 내리는 효과 (CSS) */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background-image: 
+                radial-gradient(4px 4px at 100px 50px, #fff, transparent),
+                radial-gradient(6px 6px at 200px 150px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(3px 3px at 300px 250px, #fff, transparent),
+                radial-gradient(5px 5px at 400px 350px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(4px 4px at 500px 100px, #fff, transparent);
+            background-size: 550px 550px;
+            animation: snow 10s linear infinite;
+        }
+
+        @keyframes snow {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 550px 550px, 400px 400px, 300px 300px, 200px 200px, 100px 100px; }
+        }
+
+        /* 히어로 섹션 */
+        header {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, #1d3557 0%, #0b132b 100%);
+            border-bottom: 4px solid var(--xmas-gold);
+        }
+
+        .badge {
+            background-color: var(--xmas-red);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(217, 4, 41, 0.6);
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            color: var(--text-light);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 20px rgba(255, 183, 3, 0.4);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 span {
+            color: var(--xmas-gold);
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, var(--xmas-red), #ef233c);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            border-radius: 50px;
+            border: 2px solid var(--xmas-gold);
+            box-shadow: 0 10px 25px rgba(217, 4, 41, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 183, 3, 0.6);
+        }
+
+        /* 시놉시스 섹션 */
+        .synopsis {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 3rem;
+            background: rgba(28, 37, 65, 0.8);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .synopsis h2 {
+            color: var(--xmas-gold);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .synopsis p {
+            font-size: 1.1rem;
+            color: #e9ecef;
+            margin-bottom: 1rem;
+        }
+
+        /* 캐릭터 섹션 */
+        .characters-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--xmas-gold);
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .char-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .char-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--xmas-gold);
+            box-shadow: 0 15px 40px rgba(255, 183, 3, 0.25);
+        }
+
+        .char-role-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--xmas-red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* 이미지 플레이스홀더 (실제 캐릭터 일러스트로 교체하세요) */
+        .char-img-box {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(180deg, #2b3a67 0%, #1c2541 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            border-bottom: 2px solid rgba(255, 183, 3, 0.2);
+            position: relative;
+        }
+
+        .char-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .char-info {
+            padding: 1.8rem;
+        }
+
+        .char-name {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--xmas-gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .char-title {
+            font-size: 0.95rem;
+            color: var(--xmas-green);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .char-quote {
+            background: rgba(11, 19, 43, 0.6);
+            padding: 1rem;
+            border-left: 4px solid var(--xmas-red);
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: #f1faee;
+        }
+
+        .char-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* 푸터 */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #060a17;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: var(--xmas-red);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 눈 내리는 배경 효과 -->
+    <div class="snow-container"></div>
+
+    <!-- 메인 히어로 배너 -->
+    <header>
+        <div class="badge">🎄 MERRY X-MAS SPECIAL SCENARIO 🎄</div>
+        <h1><span>{{user}}</span>의 집 털기!</h1>
+        <p class="subtitle">
+            고요한 크리스마스 이브 밤, 굴뚝을 타고 내려온 건 산타가 아니라<br>
+            당신의 재산과 <strong>마음</strong>을 노리는 5명의 엉뚱발랄 미소녀 좀도둑들이었다?!
+        </p>
+        <a href="#characters" class="cta-btn">공범들 확인하기 👇</a>
+    </header>
+
+    <!-- 시놉시스 -->
+    <section class="synopsis">
+        <h2>🎁 작전명: {{user}}의 심장을 훔쳐라!</h2>
+        <p>
+            12월 24일 자정. 완벽한 알리바이와 치밀한 계획(?)을 세우고 <strong>{{user}}</strong>의 집에 잠입한 5인조 좀도둑단.
+        </p>
+        <p>
+            금고를 털려다 트리에 걸려 넘어지고, 냉장고의 케이크를 몰래 먹다 들키고, 급기야 서로 <strong>{{user}}</strong>의 주의를 끌겠다며 다투기 시작하는데...!
+        </p>
+        <p style="color: var(--xmas-gold); font-weight: bold; margin-top: 1.5rem;">
+            "과연 무사히 물건을 훔쳐 나갈 수 있을까, 아니면 {{user}}에게 붙잡혀 평생 책임을 지게 될까?"
+        </p>
+    </section>
+
+    <!-- 5명의 캐릭터 소개 -->
+    <section id="characters" class="characters-section">
+        <h2 class="section-title">🎅 5인 5색 크리스마스 좀도둑단</h2>
+        <p class="section-desc">※ 주의: 물건 대신 당신의 마음을 훔칠 수 있습니다.</p>
+
+        <div class="char-grid">
+            
+            <!-- 캐릭터 1 -->
+            <div class="char-card">
+                <div class="char-role-tag">리더 / 허당</div>
+                <div class="char-img-box">
+                    <!-- 이미지 경로를 넣으세요: <img src="char1.jpg" alt="캐릭터1"> -->
+                    <span>[ 캐릭터 1 일러스트 영역 ]</span>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">노엘 (Noel)</div>
+                    <div class="char-title">#산타복_리더 #계획은_완벽했다 #허당미</div>
+                    <div class="char-quote">"잠깐! 움직이지 마! 우린 프로 도둑이라고... 앗, 리본이 풀렸네!"</div>
+                    <p class="char-desc">
+                        좀도둑단의 자칭 천재 리더. 섹시한 산타 복장으로 위장 잠입했으나, 덤벙대는 성격 탓에 가장 먼저 {{user}}에게 덜미를 잡히고 만다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 캐릭터 2 -->
+            <div class="char-card">
+                <div class="char-role-tag">해커 / 쿨데레</div>
+                <div class="char-img-box">
+                    <span>[ 캐릭터 2 일러스트 영역 ]</span>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">이브 (Eve)</div>
+                    <div class="char-title">#보안해제_담당 #루돌프_머리띠 #츤데레</div>
+                    <div class="char-quote">"흥, 네 집 보안 수준이 형편없어서 들어온 것뿐이야. 착각하지 마."</div>
+                    <p class="char-desc">
+                        모든 전자 잠금장치를 10초 만에 뚫는 천재 해커. 무뚝뚝하게 굴지만 {{user}}의 다정한 말 한마디에 얼굴이 루돌프 코처럼 새빨개진다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 캐릭터 3 -->
+            <div class="char-card">
+                <div class="char-role-tag">행동대장 / 먹보</div>
+                <div class="char-img-box">
+                    <span>[ 캐릭터 3 일러스트 영역 ]</span>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">홀리 (Holly)</div>
+                    <div class="char-title">#금고파괴자 #케이크_서리범 #대형견미</div>
+                    <div class="char-quote">"우물우물... 엇, {{user}}! 이 딸기 케이크 진짜 맛있다! 하나 더 없어?"</div>
+                    <p class="char-desc">
+                        엄청난 괴력의 소유자지만 본분인 도둑질보다 {{user}}의 냉장고 털기에 더 진심이다. 맛있는 걸 주면 꼬리를 흔들며 배신할지도?
+                    </p>
+                </div>
+            </div>
+
+            <!-- 캐릭터 4 -->
+            <div class="char-card">
+                <div class="char-role-tag">변장 / 요염</div>
+                <div class="char-img-box">
+                    <span>[ 캐릭터 4 일러스트 영역 ]</span>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">벨 (Belle)</div>
+                    <div class="char-title">#미인계_담당 #선물상자_위장 #능글맞음</div>
+                    <div class="char-quote">"어머, {{user}}~ 내가 오늘 밤 가장 큰 크리스마스 선물이 되어줄까?"</div>
+                    <p class="char-desc">
+                        거대한 선물 상자 속에 숨어 들어온 유혹의 달인. {{user}}를 유혹해 시선을 끌려다 오히려 자신이 {{user}}의 페이스에 말려든다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 캐릭터 5 -->
+            <div class="char-card">
+                <div class="char-role-tag">막내 / 소심</div>
+                <div class="char-img-box">
+                    <span>[ 캐릭터 5 일러스트 영역 ]</span>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">스노우 (Snow)</div>
+                    <div class="char-title">#망보기_담당 #울보_막내 #보호본능</div>
+                    <div class="char-quote">"히잉... 죄, 죄송해요! 다 돌려드릴 테니까 경찰에 신고만은...!"</div>
+                    <p class="char-desc">
+                        어쩌다 보니 언니들에게 이끌려 범죄에 가담한 소심한 막내. 순수하고 착한 심성 탓에 오히려 {{user}}의 집을 청소해 주고 있다.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>🎄 <strong>{{user}}의 집 털기!</strong> - All Rights Reserved.</p>
+        <p>올겨울, 당신의 집 문단속을 단단히 하세요... <span>♥</span></p>
+    </footer>
+
+</body>
+</html>
